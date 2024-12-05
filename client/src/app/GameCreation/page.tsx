@@ -17,7 +17,7 @@ export default function GameCreation() {
                     <div className="space-y-1 flex flex-col w-full">
                         <label className="font-medium text-base">Nome do jogo</label>
                         <input
-                            id="title"
+                            id="gameName"
                             type="text"
                             placeholder="Jogo"
                             className="placeholder:text-black px-3 py-2 border border-gray-300 rounded-xl font-normal text-base"/>
@@ -26,7 +26,7 @@ export default function GameCreation() {
                     <div className="space-y-1 flex flex-col w-full">
                         <label className="font-medium text-base">Plataforma de reunião da partida</label>
                         <input
-                            id="title"
+                            id="platform"
                             type="text"
                             placeholder="Plataforma"
                             className="placeholder:text-black px-3 py-2 border border-gray-300 rounded-xl font-normal text-base"/>
@@ -37,14 +37,14 @@ export default function GameCreation() {
                 <div className="space-y-1 flex flex-col w-full pb-2">
                         <label className="font-medium text-base">Data da partida</label>
                         <input
-                            id="Data"
+                            id="date"
                             type="date"
                             className="placeholder:text-black px-3 py-2 border border-gray-300 rounded-xl font-normal text-base"/>
                     </div>
                     <div className="space-y-1 flex flex-col w-full">
                         <label className="font-medium text-base">Horário da partida</label>
                         <input
-                            id="Horário"
+                            id="time"
                             type="time"
                             placeholder=""
                             className="placeholder:text-black px-3 py-2 border border-gray-300 rounded-xl font-normal text-base"/>
@@ -52,7 +52,7 @@ export default function GameCreation() {
                     <div className="space-y-1 flex flex-col w-full">
                         <label className="font-medium text-base">Quantidade de pessoas na partida</label>
                         <input
-                            id="title"
+                            id="maxParticipants"
                             type="text"
                             placeholder="Capacidade"
                             className="placeholder:text-black px-3 py-2 border border-gray-300 rounded-xl font-normal text-base"/>
@@ -62,7 +62,7 @@ export default function GameCreation() {
                     <div className="space-y-1 flex flex-col w-full pt-4">
                         <label className="font-medium text-base">Link da partida</label>
                         <input
-                            id="title"
+                            id="link"
                             type="text"
                             placeholder="Link"
                             className="placeholder:text-black px-3 py-2 border border-gray-300 rounded-xl font-normal text-base"/>
