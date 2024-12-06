@@ -36,35 +36,6 @@ export default function ExploreMatches() {
         <h1 className="text-2xl text-black font-barlow font-normal mb-16">
           Próximas partidas
         </h1>
-<<<<<<< HEAD
-        {matches.length > 0 ? (
-          <ScrollArea className="w-full h-full rounded-md border-none p-0 mb-8">
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-1">
-              {matches.map((match, index) => (
-                <MatchCard
-                  key={index}
-                  gameName={match.gameName}
-                  description={match.description}
-                  date={match.date}
-                  time={match.time}
-                  status={match.status}
-                  participants={match.participants}
-                />
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        ) : (
-          <div className="flex justify-center items-center h-full mb-16">
-            <span className="text-center font-barlow text-gray-800 text-2xl font-light">
-              Sem partidas disponíveis
-            </span>
-          </div>
-        )}
-        
-          <Modal/>
-       
-=======
           {matches.length > 0 ? (
             <ScrollArea className="w-full h-full rounded-md border-none p-0 mb-8">
               <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-1">
@@ -90,7 +61,6 @@ export default function ExploreMatches() {
         <div className="flex justify-end">
           <CreateButton />
         </div>
->>>>>>> develop
       </div>
     </div>
   );
