@@ -9,13 +9,6 @@ type ButtonProps = {
 
 export default function MatchButton({ matchStatus = "availableMatch" }: ButtonProps) {
     const router = useRouter();
-    const handleClick = () => {
-        if (matchStatus === "availableMatch") {
-            router.push("/GameCreation");
-        } else {
-            router.push("/ExploreMatches");
-        }
-    }
 
     let buttonText = "Entrar";
     let buttonStyle = "bg-greenButton hover:bg-greenButtonHover";
@@ -29,7 +22,7 @@ export default function MatchButton({ matchStatus = "availableMatch" }: ButtonPr
     }
 
     return (
-        <Button onClick={handleClick} className={`${buttonStyle} ${customProps}`} disabled={matchStatus === "closedMatch"}>
+        <Button className={`${buttonStyle} ${customProps}`} disabled={matchStatus === "closedMatch"}>
             <span className="text-white font-bold text-xl font-barlow">{buttonText}</span>
         </Button>
     );

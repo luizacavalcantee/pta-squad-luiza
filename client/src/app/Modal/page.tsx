@@ -1,138 +1,72 @@
 "use client"
 
-import * as React from "react"
-import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { X } from "lucide-react"
-import { cn } from "@/lib/utils"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog"
 
-const Dialog = DialogPrimitive.Root
+  import MatchButton from "@/components/MatchButton";
+  import Image from "next/image";
+  import { logoCITiBlue } from "@/assets";
+  import { CreateButton } from "@/components/CreateButton";
+  import { useForm } from "react-hook-form";
+  import React, { useState  } from "react";
+  import { useRouter } from "next/navigation";
 
-const DialogTrigger = DialogPrimitive.Trigger
+  interface LoginData {
+    username: string;
+    email: string;
+  }
 
-const DialogPortal = DialogPrimitive.Portal
-
-const DialogClose = DialogPrimitive.Close
-
-const DialogOverlay = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Overlay
-    ref={ref}
-    className={cn(
-      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
-    )}
-    {...props}
-  />
-))
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
-
-const DialogContent = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <DialogPortal>
-    <DialogOverlay />
-    <DialogPrimitive.Content
-      ref={ref}
-      className={cn(
-        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </DialogPrimitive.Close>
-    </DialogPrimitive.Content>
-  </DialogPortal>
-))
-DialogContent.displayName = DialogPrimitive.Content.displayName
-
-const DialogHeader = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "flex flex-col space-y-1.5 text-center sm:text-left",
-      className
-    )}
-    {...props}
-  />
-)
-DialogHeader.displayName = "DialogHeader"
-
-const DialogFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className
-    )}
-    {...props}
-  />
-)
-DialogFooter.displayName = "DialogFooter"
-
-const DialogTitle = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Title
-    ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
-      className
-    )}
-    {...props}
-  />
-))
-DialogTitle.displayName = DialogPrimitive.Title.displayName
-
-const DialogDescription = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Description
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
-))
-DialogDescription.displayName = DialogPrimitive.Description.displayName
-
-export {
-  Dialog,
-  DialogPortal,
-  DialogOverlay,
-  DialogClose,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogDescription,
-}
-export default function Modal() {
+  export default function Modal() {
+    const router = useRouter();
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginData>({ mode: "onChange" });
+    const [ loginData, setLoginData] = useState<LoginData>({
+        username: "",
+        email: "",
+    });
+  
+    const onSubmit = (data: LoginData ) => {
+      setLoginData(data)
+      console.log("Dados enviados:", loginData)
+      router.push("/GameCreation");
+  };
     return (
-        <Dialog>
-  <DialogTrigger>Open</DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you absolutely sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
-</Dialog>
+      <Dialog>
+        <DialogTrigger className="flex justify-end">
+          <CreateButton/>
+        </DialogTrigger>
+        <DialogContent className="w-full max-w-fit gap-0 bg-background p-16 flex rounded-2xl flex-col justify-center items-center">
+          <DialogHeader className="gap-8">
+            <DialogTitle> 
+              <Image src={logoCITiBlue} alt="Logo" className="w-80 h-auto" />
+            </DialogTitle>
+            <DialogDescription>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <input  
+                  id="username"
+                  type="text"
 
+                  {...register("username", { required: "Este campo é obrigatório" })}
+                  className="font-barlow text-gray-400 flex bg-white rounded border border-gray-200 w-80 h-12 mb-8  px-3 py-3 focus:outline-none focus:border-backgroundSidebar focus:bg-backgroundSidebar/20"placeholder="username"required/>
+                
+                <input
+                  id="email"
+                  type="text"
+                  {...register("email", { required: "Este campo é obrigatório" })}
+                  className="font-barlow text-gray-400 flex bg-white rounded border border-gray-200 w-80 h-12 mb-8 px-3 py-3 focus:outline-none focus:border-backgroundSidebar focus:bg-backgroundSidebar/20"placeholder="e-mail" required/>
+                  <button type="submit">
+                    <MatchButton/>
+                  </button>
+              </form>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    
     );
 }

@@ -23,6 +23,7 @@ module.exports = {
 				barlow: ['Barlow', 'sans-serif']
 			},
     		colors: {
+				grayModal: 'hsl(var(--gray-modal))',
 				redError: 'hsl(var(--red-error))',
 				greenCard: 'hsl(var(--green-card))',
 				purpleCard: 'hsl(var(--purple-card))',
