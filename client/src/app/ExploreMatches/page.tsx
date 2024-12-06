@@ -4,6 +4,7 @@ import { CreateButton } from "@/components/CreateButton";
 import MatchCard from "@/components/MatchCard";
 import Topbar from "@/components/topbar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import Modal from "../Modal/page";
 
 const matches = [
   { gameName: "Minecraft", description: "Discord", date: "06/07/2023", time: "19h", status: "closed", participants: 5 },
@@ -58,9 +59,7 @@ export default function ExploreMatches() {
               <span className="text-center font-barlow text-gray-800 text-2xl font-light">Sem partidas disponíveis</span>
             </div>
           )}
-        <div className="flex justify-end">
-          <CreateButton />
-        </div>
+        <Modal />
       </div>
     </div>
   );

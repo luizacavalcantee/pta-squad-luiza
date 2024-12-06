@@ -38,6 +38,7 @@ export default function GameCreation() {
         const updatedData = {...data, date:formattedDate}
         setMatchData(updatedData)
         console.log("Dados enviados:", matchData)
+        router.push("/ExploreMatches");
     };
     
     const handleReturn = () => {
