@@ -1,6 +1,5 @@
 "use client";
 
-import { CreateButton } from "@/components/CreateButton";
 import MatchCard from "@/components/MatchCard";
 import Topbar from "@/components/topbar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -59,7 +58,7 @@ export default function ExploreMatches() {
               <span className="text-center font-barlow text-gray-800 text-2xl font-light">Sem partidas disponíveis</span>
             </div>
           )}
-        <Modal />
+          <Modal />
       </div>
     </div>
   );
