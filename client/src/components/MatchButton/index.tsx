@@ -12,7 +12,7 @@ export default function MatchButton({ matchStatus = "availableMatch" }: ButtonPr
 
     let buttonText = "Entrar";
     let buttonStyle = "bg-greenButton hover:bg-greenButtonHover";
-    let customProps = "w-80 h-12 rounded-lg shadow-lg shadow-b";
+    let customProps = "w-80 h-12 rounded-2xl shadow-lg shadow-b";
 
     if (matchStatus === "closedMatch") {
         buttonStyle = "bg-grayButton cursor-not-allowed drop-shadow-lg shadow-gray-900";
