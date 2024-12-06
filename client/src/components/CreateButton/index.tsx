@@ -8,7 +8,7 @@ export function CreateButton() {
     const router = useRouter();
     
     const handleClick = () => {
-        router.push('/dashboard');
+        router.push('/GameCreation');
     };
 
     return (

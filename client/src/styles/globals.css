@@ -17,6 +17,7 @@
   }
   :root {
     /*created*/
+    --red-error: 354 81% 57%;
     --green-button: 136 75% 61%;
     --green-button-hover: 136 72% 52%;
     --gray-button: 0 0% 87%;
