@@ -8,11 +8,11 @@ import { cn } from "@/lib/utils"
 import { format } from 'date-fns'
 import { CalendarFold } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-import { Input } from "../../components/ui/input"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover" 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import Modal from "../Modal/page";
 
 
 const matches = [
@@ -146,7 +146,7 @@ export default function ProfilePage() {
                                   <ScrollBar orientation="horizontal" />
                               </ScrollArea>
                             <div className="flex justify-end mt-2">
-                              <CreateButton />
+                              <Modal />
                             </div>
                           <div/>                 
                         </div>
