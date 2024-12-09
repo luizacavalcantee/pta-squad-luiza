@@ -1,7 +1,6 @@
 "use client"
 import Topbar from "@/components/topbar";
 import MatchCard from "@/components/MatchCard";
-import { CreateButton } from "@/components/CreateButton";
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
@@ -13,6 +12,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover" 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import Modal from "../Modal/page";
 
 
 const matches = [
@@ -146,7 +146,7 @@ export default function ProfilePage() {
                                   <ScrollBar orientation="horizontal" />
                               </ScrollArea>
                             <div className="flex justify-end mt-2">
-                              <CreateButton />
+                              <Modal />
                             </div>
                           <div/>                 
                         </div>
