@@ -2,6 +2,7 @@
 import Topbar from "@/components/topbar";
 import MatchCard from "@/components/MatchCard";
 import { CreateButton } from "@/components/CreateButton";
+import api from "@/services/api";
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
@@ -13,7 +14,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import Modal from "../Modal/page";
-
 
 const matches = [
   { gameName: "Minecraft", description: "Discord", date: "06/07/2023", time: "19h", status: "closed", participants: 5 },
@@ -42,10 +42,22 @@ const matches = [
 export default function ProfilePage() {
 
     const [date, setDate] = React.useState<Date>()
+    const [inputValue, setInputValue] = React.useState<string>("")
 
-    const handleSearch = () => {
-        //GET do backend...
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value)
     }
+
+    const getUser = (value: string) => {
+        console.log(value)
+        /*api.get(`/users/${value}`)
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })*/
+    };
 
     return (
         <div className="h-screen font-barlow">
@@ -53,8 +65,11 @@ export default function ProfilePage() {
             <div className="flex flex-col justify-start p-10 h-[calc(100vh-64px)] overflow-y-scroll">
                 <span className="text-4xl font-medium text-gray-800 mb-8">  Qual o username? </span>
                 <div className="flex flex-row gap-5 items-center mb-28">
-                    <input className="w-80 h-12 rounded-lg px-5 bg-white text-gray-500 border border-gray-300 placeholder:text-lg focus:outline-none focus:border-backgroundSidebar focus:bg-backgroundSidebar/20 hover:border-gray-400" placeholder="lorem Ipsum" />
-                    <Button onClick={handleSearch} className="w-28 h-12 bg-backgroundSidebar text-white font-medium text-lg rounded-2xl shadow-lg hover:bg-[#1fb8f9]">Buscar</Button>
+                    <input className="w-80 h-12 rounded-lg px-5 bg-white text-gray-500 border border-gray-300 placeholder:text-lg focus:outline-none focus:border-backgroundSidebar focus:bg-backgroundSidebar/20 hover:border-gray-400" placeholder="lorem Ipsum" 
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    />
+                    <Button onClick={() => getUser(inputValue)} className="w-28 h-12 bg-backgroundSidebar text-white font-medium text-lg rounded-2xl shadow-lg hover:bg-[#1fb8f9]">Buscar</Button>
                 </div>
                 <Tabs defaultValue="1" className="w-full border-t-2 h-fit">
                     <TabsList className="gap-4 px-12">
