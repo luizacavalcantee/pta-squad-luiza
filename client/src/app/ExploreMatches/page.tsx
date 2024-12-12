@@ -23,8 +23,15 @@ const formatDate = (date: string) => {
   return format(new Date(date), "dd/MM/yyyy", { locale: ptBR });
 };
 
-const formatTime = (time: string) => {
+/*const formatTime = (time: string) => {
   return format(new Date(time), "HH:mm");
+}; */
+
+const formatTime = (timeString: string) => {
+  const timeObj = new Date(timeString);
+  const hour = String(timeObj.getHours()).padStart(2, '0');
+  
+  return `${hour}h`;
 };
 
 export default function ExploreMatches() {
@@ -34,12 +41,19 @@ export default function ExploreMatches() {
     fetchMatches();
   }, []);
 
+  const getRandomStatus = (): string => {
+    const statuses = ["full", "joinable", "playing"];
+    return statuses[Math.floor(Math.random() * statuses.length)];
+  };
+
   const fetchMatches = async () => {
     try {
       const response = await api.get<Match[]>("/match");
-      const data = response.data;
+      const data = response.data.map((match) => ({
+        ...match,
+        status: getRandomStatus(),
+      }));
       setMatches(data);
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -54,7 +68,7 @@ export default function ExploreMatches() {
         </h1>
           {matches.length > 0 ? (
             <ScrollArea className="w-full h-full rounded-md border-none p-0 mb-8">
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-1">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,max-content))] gap-3 justify-start p-1">
                 {matches.map((match, index) => (
                   <MatchCard
                     key={index}
