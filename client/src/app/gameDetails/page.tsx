@@ -1,9 +1,41 @@
+"use client";
+
+import api from "@/services/api";
+import { useEffect , useState } from "react";
+
 import Topbar from "@/components/topbar";
 import MatchButton from "@/components/MatchButton";
 
 import { CircleUserRound } from "lucide-react";
 
+interface Match {
+  gameName: string;
+  description: string;
+  date: string;
+  time: string;
+  status: string;
+  maxParticipants: number;
+}
+
 export default function gameDetails() {
+  const [matches, setMatches] = useState<Match[]>([]);
+
+    useEffect(() => {
+      fetchMatches();
+    }, []);
+
+    const fetchMatches = async () => {
+      try{
+        const response = await api.get<Match[]>("/match");
+        const data = response.data;
+        setMatches(data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    
   return (
     <div className="h-screen font-barlow">
       <Topbar backArrow={true} />
