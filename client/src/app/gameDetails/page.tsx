@@ -9,6 +9,7 @@ import MatchButton from "@/components/MatchButton";
 import { CircleUserRound } from "lucide-react";
 
 interface Match {
+  id: string;
   gameName: string;
   description: string;
   date: string;
@@ -18,20 +19,20 @@ interface Match {
 }
 
 export default function gameDetails() {
-  const [matches, setMatches] = useState<Match[]>([]);
+  const [matches, setMatches] = useState({} as Match);
 
     useEffect(() => {
-      fetchMatches();
+      fetchMatch(matches.id);
     }, []);
 
-    const fetchMatches = async () => {
-      try{
-        const response = await api.get<Match[]>("/match");
-        const data = response.data;
-        setMatches(data);
-        console.log(response.data);
+    const fetchMatch = async (id: string) => {
+      try {
+      const response = await api.<Match>(`/match/${id}`);
+      const data = response.data;
+      setMatches(data);
+      console.log(response.data);
       } catch (error) {
-        console.error(error);
+      console.error(error);
       }
     };
 
@@ -47,7 +48,7 @@ export default function gameDetails() {
               Partidas
             </span>
             <span className="text-2xl font-medium text-gray-800">
-              Minecraft
+              {matches.gameName}
             </span>
           </div>
 
