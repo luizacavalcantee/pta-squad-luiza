@@ -67,7 +67,7 @@ export default function ExploreMatches() {
                   <MatchCard
                     key={index}
                     gameName={match.gameName}
-                    description={match.platform}
+                    platform={match.platform}
                     date={formatDate(match.date)}
                     time={formatTime(match.time)}
                     status={match.status}

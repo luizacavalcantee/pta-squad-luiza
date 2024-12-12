@@ -13,7 +13,7 @@ import { UsersRound } from "lucide-react";
 
 interface MatchCardProps {
   gameName: string;
-  description: string;
+  platform: string;
   date: string;
   time: string;
   status: string;
@@ -22,7 +22,7 @@ interface MatchCardProps {
 
 export default function MatchCard({
   gameName,
-  description,
+  platform,
   date,
   time,
   status,
@@ -53,7 +53,7 @@ export default function MatchCard({
       <CardHeader className="space-y-2 p-4 pb-2">
         <CardTitle className="text-darkGray font-medium text-sm">{gameName}</CardTitle>
         <CardDescription className="font-light text-darkGray text-sm">
-          {description}
+          {platform}
         </CardDescription>
       </CardHeader>
 
