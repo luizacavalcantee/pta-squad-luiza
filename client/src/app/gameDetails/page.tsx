@@ -27,7 +27,7 @@ export default function gameDetails() {
 
     const fetchMatch = async (id: string) => {
       try {
-      const response = await api.<Match>(`/match/${id}`);
+      const response = await api.get<Match>(`/match/${id}`);
       const data = response.data;
       setMatches(data);
       console.log(response.data);
