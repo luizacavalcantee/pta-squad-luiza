@@ -17,7 +17,7 @@ interface MatchCardProps {
   date: string;
   time: string;
   status: string;
-  participants: number;
+  maxParticipants: number;
 }
 
 export default function MatchCard({
@@ -26,7 +26,7 @@ export default function MatchCard({
   date,
   time,
   status,
-  participants,
+  maxParticipants,
 }: MatchCardProps) {
   const router = useRouter();
 
@@ -65,7 +65,7 @@ export default function MatchCard({
         </CardContent>
 
         <CardFooter className="flex font-light gap-1 p-0 ml-auto">
-          <span className="font-light text-darkGray text-sm">{participants}</span>
+          <span className="font-light text-darkGray text-sm">{maxParticipants}</span>
           <UsersRound className="stroke-darkGray w-5" />
         </CardFooter>
       </div>

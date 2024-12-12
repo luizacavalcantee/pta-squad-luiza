@@ -1,34 +1,58 @@
 "use client";
 
+import api from "@/services/api";
+import { useEffect, useState } from "react";
+
 import MatchCard from "@/components/MatchCard";
 import Topbar from "@/components/topbar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Modal from "../Modal/page";
 
-const matches = [
-  { gameName: "Minecraft", description: "Discord", date: "06/07/2023", time: "19h", status: "closed", participants: 5 },
-  { gameName: "League of Legends", description: "Discord", date: "07/07/2023", time: "20h", status: "full", participants: 10 },
-  { gameName: "Valorant", description: "Discord", date: "08/07/2023", time: "18h", status: "joinable", participants: 8 },
-  { gameName: "CS:GO", description: "Discord", date: "09/07/2023", time: "21h", status: "playing", participants: 12 },
-  { gameName: "Fortnite", description: "Discord", date: "10/07/2023", time: "17h", status: "joinable", participants: 6 },
-  { gameName: "Overwatch", description: "Discord", date: "11/07/2023", time: "22h", status: "full", participants: 9 },
-  { gameName: "Apex Legends", description: "Discord", date: "12/07/2023", time: "16h", status: "playing", participants: 15 },
-  { gameName: "PUBG", description: "Discord", date: "13/07/2023", time: "20h", status: "closed", participants: 11 },
-  { gameName: "Dota 2", description: "Discord", date: "14/07/2023", time: "19h", status: "joinable", participants: 7 },
-  { gameName: "Among Us", description: "Discord", date: "15/07/2023", time: "18h", status: "playing", participants: 10 },
-  { gameName: "Rocket League", description: "Discord", date: "16/07/2023", time: "21h", status: "full", participants: 6 },
-  { gameName: "Fall Guys", description: "Discord", date: "17/07/2023", time: "15h", status: "joinable", participants: 8 },
-  { gameName: "Call of Duty", description: "Discord", date: "18/07/2023", time: "23h", status: "closed", participants: 14 },
-  { gameName: "Destiny 2", description: "Discord", date: "19/07/2023", time: "19h", status: "playing", participants: 12 },
-  { gameName: "Warframe", description: "Discord", date: "20/07/2023", time: "18h", status: "joinable", participants: 9 },
-  { gameName: "Genshin Impact", description: "Discord", date: "21/07/2023", time: "17h", status: "full", participants: 4 },
-  { gameName: "The Sims", description: "Discord", date: "22/07/2023", time: "20h", status: "closed", participants: 2 },
-  { gameName: "Stardew Valley", description: "Discord", date: "23/07/2023", time: "14h", status: "joinable", participants: 3 },
-  { gameName: "Hearthstone", description: "Discord", date: "24/07/2023", time: "18h", status: "playing", participants: 6 },
-  { gameName: "Rainbow Six", description: "Discord", date: "25/07/2023", time: "20h", status: "full", participants: 8 },
-];
 
+interface Match {
+  gameName: string;
+  description: string;
+  date: string;
+  time: string;
+  status: string;
+  maxParticipants: number;
+}
 export default function ExploreMatches() {
+  const [matches, setMatches] = useState<Match[]>([]);
+
+  useEffect(() => {
+    fetchMatches();
+  }, []);
+
+  const fetchMatches = async () => {
+    try {
+      const response = await api.get<Match[]>("/match");
+      const data = response.data;
+      setMatches(data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    const dateObj = new Date(dateString);
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const year = dateObj.getFullYear();
+    
+    return `${day}/${month}/${year}`;
+  };
+
+  const formatTime = (timeString: string) => {
+    const timeObj = new Date(timeString);
+    const hour = String(timeObj.getHours()).padStart(2, '0');
+    
+    return `${hour}h`;
+  };
+  
+  
+
   return (
     <div className="h-screen">
       <Topbar backArrow={false} />
@@ -44,10 +68,10 @@ export default function ExploreMatches() {
                     key={index}
                     gameName={match.gameName}
                     description={match.description}
-                    date={match.date}
-                    time={match.time}
+                    date={formatDate(match.date)}
+                    time={formatTime(match.time)}
                     status={match.status}
-                    participants={match.participants}
+                    maxParticipants={match.maxParticipants}
                   />
                 ))}
               </div>
