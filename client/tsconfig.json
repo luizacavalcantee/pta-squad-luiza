@@ -30,7 +30,9 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "typeRoots": ["node_modules/@types"], // Adicionado para apontar onde buscar os tipos
+    "types": ["react", "react-dom", "node"] // Adicionado para garantir que tipos necessários sejam carregados
   },
   "include": [
     "next-env.d.ts",
