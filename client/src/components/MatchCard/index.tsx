@@ -57,7 +57,7 @@ export default function MatchCard({
         </CardDescription>
       </CardHeader>
 
-      <div className="flex gap-12 p-4 pt-0">
+      <div className="flex gap-10 p-4 pt-0">
         <CardContent className="font-light p-0">
           <span className="text-darkGray flex text-sm">
             {date} | {time}

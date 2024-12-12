@@ -7,7 +7,8 @@ import MatchCard from "@/components/MatchCard";
 import Topbar from "@/components/topbar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Modal from "../Modal/page";
-
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 interface Match {
   gameName: string;
@@ -17,6 +18,15 @@ interface Match {
   status: string;
   maxParticipants: number;
 }
+
+const formatDate = (date: string) => {
+  return format(new Date(date), "dd/MM/yyyy", { locale: ptBR });
+};
+
+const formatTime = (time: string) => {
+  return format(new Date(time), "HH:mm");
+};
+
 export default function ExploreMatches() {
   const [matches, setMatches] = useState<Match[]>([]);
 
@@ -34,24 +44,6 @@ export default function ExploreMatches() {
       console.error(error);
     }
   };
-
-  const formatDate = (dateString: string) => {
-    const dateObj = new Date(dateString);
-    const day = String(dateObj.getDate()).padStart(2, '0');
-    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const year = dateObj.getFullYear();
-    
-    return `${day}/${month}/${year}`;
-  };
-
-  const formatTime = (timeString: string) => {
-    const timeObj = new Date(timeString);
-    const hour = String(timeObj.getHours()).padStart(2, '0');
-    
-    return `${hour}h`;
-  };
-  
-  
 
   return (
     <div className="h-screen">
