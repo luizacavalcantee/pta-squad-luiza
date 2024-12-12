@@ -20,6 +20,7 @@
     "axios": "^1.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cors": "^2.8.5",
     "cssnano": "^7.0.6",
     "date-fns": "^4.1.0",
     "eslint-config-next": "^14.2.14",
