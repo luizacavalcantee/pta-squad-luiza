@@ -11,7 +11,7 @@ import Modal from "../Modal/page";
 
 interface Match {
   gameName: string;
-  description: string;
+  platform: string;
   date: string;
   time: string;
   status: string;
@@ -67,7 +67,7 @@ export default function ExploreMatches() {
                   <MatchCard
                     key={index}
                     gameName={match.gameName}
-                    description={match.description}
+                    description={match.platform}
                     date={formatDate(match.date)}
                     time={formatTime(match.time)}
                     status={match.status}
