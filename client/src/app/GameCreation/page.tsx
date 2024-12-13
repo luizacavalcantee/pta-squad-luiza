@@ -18,39 +18,54 @@ interface MatchData {
     maxParticipants: number;
     description: string;
     link: string; 
+    participants: string[];
 }
 
 export default function GameCreation() {
 
-    const onSubmit = async (data: MatchData) => {
+    const [ matchData, setMatchData] = useState<MatchData>({
+        gameName: "",
+        platform: "",
+        date: "",
+        time: "",
+        maxParticipants: 0,
+        link: "",
+        description: "",
+        username: "",
+        email: "",
+        participants: []
+    });
 
-        const formattedDateWithTime = new Date(`${data.date}T${data.time}`).toISOString();
-        const updatedData = { ...data, maxParticipants: Number(data.maxParticipants), date: formattedDateWithTime, time: formattedDateWithTime };
+    const onSubmit = async (data: MatchData) => {
+        // Cria o objeto final com todos os campos necessários
+        const completeData: MatchData = {
+            ...data, // Inclui os dados do formulário
+            username: matchData.username || "default_username", // Define valores padrão, se necessário
+            email: matchData.email || "default_email@example.com",
+            participants: matchData.participants || [], // Usa um array vazio como padrão
+            maxParticipants: parseInt(data.maxParticipants.toString()), // Converte para número
+        };
+    
+        // Formata a data e a hora para ISO
+        const formattedDateWithTime = new Date(`${completeData.date}T${completeData.time}`).toISOString();
+        completeData.date = formattedDateWithTime;
+        completeData.time = formattedDateWithTime; // Redundante, mas preserva consistência
     
         try {
-            const response = await api.post("/match", updatedData); // Chamada usando a instância do Axios
+            const response = await api.post("/match", completeData); // Envia todos os dados
             console.log("Partida criada com sucesso:", response);
     
-            //router.push("/ExploreMatches"); // Redireciona após sucesso
+            // Redireciona após sucesso
+            // router.push("/ExploreMatches");
         } catch (error) {
             console.error("Erro ao criar a partida:", error);
-            console.log(updatedData);
+            console.log(completeData); // Verifica se todos os campos foram enviados
             alert("Erro ao criar a partida. Por favor, tente novamente.");
         }
     };
+    
 
     const { register, handleSubmit, formState: { errors } } = useForm<MatchData>({ mode: "onChange" });
-    const [ matchData, setMatchData] = useState<MatchData>({
-        username: "",
-        email: "",
-        gameName: "",
-        date: "",
-        time: "",
-        platform: "",
-        maxParticipants: 0,
-        description: "",
-        link: "",
-    });
     const router = useRouter();
     
     const handleReturn = () => {

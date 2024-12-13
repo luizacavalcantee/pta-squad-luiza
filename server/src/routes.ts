@@ -13,5 +13,6 @@ routes.post("/match", matchController.create);
 routes.get("/match", matchController.get);
 routes.delete("/match/:id", matchController.delete);
 routes.patch("/match/:id", matchController.update);
+routes.get("/match/:id", matchController.getById);
 
 export default routes;

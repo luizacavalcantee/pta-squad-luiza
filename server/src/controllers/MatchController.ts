@@ -34,6 +34,14 @@ class MatchController implements Crud {
         return response.status(httpStatus).send(values);
     };
 
+    getById = async(request: Request, response: Response) => {
+        const { id } = request.params;
+
+        const { httpStatus, value } = await this.citi.findById(id);
+
+        return response.status(httpStatus).send(value);
+    };
+
     delete = async(request: Request, response: Response) => {
         const{id} = request.params;
 

@@ -19,7 +19,7 @@ CREATE TABLE "Test" (
 
 -- CreateTable
 CREATE TABLE "Match" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "gameName" TEXT NOT NULL,
     "platform" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
