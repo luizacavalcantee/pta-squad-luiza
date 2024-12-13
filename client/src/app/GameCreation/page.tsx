@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { CircleAlert } from 'lucide-react';
 import { useForm } from "react-hook-form";
 import React, { useState  } from "react";
+import api from "@/services/api";
+import { time } from "console";
 
 interface MatchData {
     username: string;
@@ -19,6 +21,24 @@ interface MatchData {
 }
 
 export default function GameCreation() {
+
+    const onSubmit = async (data: MatchData) => {
+
+        const formattedDateWithTime = new Date(`${data.date}T${data.time}`).toISOString();
+        const updatedData = { ...data, maxParticipants: Number(data.maxParticipants), date: formattedDateWithTime, time: formattedDateWithTime };
+    
+        try {
+            const response = await api.post("/match", updatedData); // Chamada usando a instância do Axios
+            console.log("Partida criada com sucesso:", response);
+    
+            //router.push("/ExploreMatches"); // Redireciona após sucesso
+        } catch (error) {
+            console.error("Erro ao criar a partida:", error);
+            console.log(updatedData);
+            alert("Erro ao criar a partida. Por favor, tente novamente.");
+        }
+    };
+
     const { register, handleSubmit, formState: { errors } } = useForm<MatchData>({ mode: "onChange" });
     const [ matchData, setMatchData] = useState<MatchData>({
         username: "",
@@ -32,14 +52,6 @@ export default function GameCreation() {
         link: "",
     });
     const router = useRouter();
-
-    const onSubmit = (data: MatchData ) => {
-        const formattedDate = data.date.split('-').reverse().join('/')
-        const updatedData = {...data, date:formattedDate}
-        setMatchData(updatedData)
-        console.log("Dados enviados:", matchData)
-        router.push("/ExploreMatches");
-    };
     
     const handleReturn = () => {
         router.back();
@@ -126,7 +138,7 @@ export default function GameCreation() {
                         <input
 
                             id="maxParticipants"
-                            type="text"
+                            type="number"
                             {...register("maxParticipants", { required: "Este campo é obrigatório" })}
                             placeholder="Capacidade"
                             className="placeholder:text-black px-3 py-2 border border-gray-300 rounded-xl font-normal text-base focus:outline-none focus:border-backgroundSidebar focus:bg-backgroundSidebar/20"/>
